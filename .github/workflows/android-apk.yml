@@ -28,6 +28,9 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Run core tests
+        run: python -m unittest discover -s tests -v
+
       - name: Install Android build dependencies
         run: |
           sudo apt-get update
@@ -57,8 +60,6 @@ jobs:
             .buildozer
             ~/.buildozer
           key: android-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
-          restore-keys: |
-            android-${{ runner.os }}-
 
       - name: Build debug APK
         run: buildozer android debug
