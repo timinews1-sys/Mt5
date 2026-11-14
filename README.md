@@ -77,7 +77,7 @@ download the `dtea-debug-apk` artifact, extract the APK, and open it on an
 Android device to install. Android may ask you to allow installation from the
 browser or file manager used to open it.
 
-The current Android build supports Android 7.0 (API 24) and newer.
+The current Android build supports Android 8.0 (API 26) and newer.
 
 This is a debug build for testing, not a Play Store release. A production
 release should use a protected signing key and a dedicated release workflow.
