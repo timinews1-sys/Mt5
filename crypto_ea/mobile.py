@@ -9,6 +9,7 @@ from kivy.graphics import Color, RoundedRectangle
 from kivy.metrics import dp
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
+from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.label import Label
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.spinner import Spinner
@@ -51,14 +52,27 @@ class CryptoStrategyApp(App):
         self._price_loading = False
 
         scroll = ScrollView(do_scroll_x=False, bar_width=dp(3))
+        viewport = FloatLayout(size_hint=(1, None))
         content = BoxLayout(
             orientation="vertical",
             padding=(dp(16), dp(18)),
             spacing=dp(12),
-            size_hint_y=None,
+            size_hint=(None, None),
         )
         content.bind(minimum_height=content.setter("height"))
-        scroll.add_widget(content)
+        viewport.add_widget(content)
+        viewport.bind(
+            width=lambda _widget, width: setattr(
+                content, "width", min(width, dp(760))
+            )
+        )
+        content.bind(
+            width=lambda _widget, width: setattr(
+                content, "x", (viewport.width - width) / 2
+            ),
+            height=lambda _widget, height: setattr(viewport, "height", height),
+        )
+        scroll.add_widget(viewport)
         content.add_widget(
             self._label(
                 "[b]DTEA[/b]  [color=55d6a8]CRYPTO WORKBENCH[/color]",
