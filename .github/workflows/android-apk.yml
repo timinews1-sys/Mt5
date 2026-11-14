@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: android-apk-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     name: Build debug APK
@@ -60,18 +64,18 @@ jobs:
             .buildozer
             ~/.buildozer
           key: android-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
+          restore-keys: |
+            android-Linux-1dcdc5bb68f1536344eb6d6f69bfc724a8b6373137f05c248fcddabec7239c5a
 
       - name: Build debug APK
         run: buildozer android debug
 
       - name: Verify APK architectures
         run: |
-          for arch in arm64-v8a armeabi-v7a x86_64 x86; do
-            if ! compgen -G "bin/*-${arch}-debug.apk" > /dev/null; then
-              echo "::error::No debug APK was produced for ${arch}"
-              exit 1
-            fi
-          done
+          if ! compgen -G "bin/*-arm64-v8a-debug.apk" > /dev/null; then
+            echo "::error::No ARM64 debug APK was produced"
+            exit 1
+          fi
 
       - name: Upload APK
         uses: actions/upload-artifact@v4

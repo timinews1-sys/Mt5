@@ -12,7 +12,7 @@ fullscreen = 0
 android.permissions = INTERNET
 android.api = 35
 android.minapi = 26
-android.archs = arm64-v8a, armeabi-v7a, x86_64, x86
+android.archs = arm64-v8a
 android.accept_sdk_license = True
 p4a.bootstrap = sdl2
 

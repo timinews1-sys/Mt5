@@ -73,15 +73,13 @@ buildozer android debug
 
 The `Android APK` workflow builds a debug APK on pushes to `main`, pull requests,
 or when started manually from the GitHub Actions tab. After a successful run,
-download the `dtea-debug-apk` artifact and extract it. It contains separate APKs
-for each supported CPU architecture; install the one matching the phone or
-tablet. Most modern Android devices use `arm64-v8a`. Android may ask you to
-allow installation from the browser or file manager used to open it.
+download the `dtea-debug-apk` artifact and extract the ARM64 APK. Android may
+ask you to allow installation from the browser or file manager used to open it.
 
-The Android build targets Android 8.0 (API 26) and newer and produces
-ABI-specific APKs for 64-bit ARM, 32-bit ARM, 64-bit x86, and 32-bit x86.
-Install the APK matching the device CPU architecture. The interface supports
-portrait and landscape layouts, including wider tablet screens.
+The Android build targets Android 8.0 (API 26) and newer and produces an APK
+for 64-bit ARM (`arm64-v8a`), used by most current Android phones and tablets.
+32-bit-only and x86 devices are not supported. The interface supports portrait
+and landscape layouts, including wider tablet screens.
 
 This is a debug build for testing, not a Play Store release. A production
 release should use a protected signing key and a dedicated release workflow.
